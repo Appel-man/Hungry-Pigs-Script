@@ -1,0 +1,142 @@
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/yzt3qebK"))()
+local Window  = Library.CreateLib("Hungry Pig Script", "Synapse")
+local Player  = game.Players.LocalPlayer
+-- MAIN
+local Main        = Window:NewTab("Main")
+local MainSection = Main:NewSection("Main")
+
+local INVISIBLEWALLS         = workspace.INVISIBLEWALLS
+local INVISIBLEWALLSChildren = INVISIBLEWALLS:GetChildren()
+
+for i, v in ipairs(INVISIBLEWALLS:GetChildren()) do
+    v.CanCollide   = true
+    v.Transparency = 1
+end
+
+
+local goToDb   = false
+local goToLoop = false
+local ShowWalls    = false
+local RemoveWalls  = false
+
+function goTo()
+    if goToDb then return end
+    goToDb = true
+    local positionSave = Player.Character.HumanoidRootPart.Position
+
+    for i, v in ipairs(workspace.Pigs:GetChildren()) do
+        for i, v2 in ipairs(v:GetDescendants()) do
+            if v2.Name == "rainbowtext" and v2.Enabled then
+                Player.Character:MoveTo(v.HumanoidRootPart.Position)
+                wait(0.5)
+            end
+        end
+    end
+
+    Player.Character:MoveTo(positionSave)
+    wait(0.5)
+    goToDb = false
+    return true
+end
+
+MainSection:NewButton("TP Pig", "Teleports You To All Available Pigs", function()
+    goTo()
+end)
+
+MainSection:NewToggle("Auto Farm", "Loops The 'TP Pigs' Function", function(state)
+    if state then
+        goToLoop = true
+        spawn(function()
+            while goToLoop do
+                repeat wait() until goTo()
+                wait(1)
+            end
+        end)
+    else
+        goToLoop = false
+    end
+end)
+
+MainSection:NewButton("TP Spawn", "Teleports You To Spawn", function()
+    Player.Character:MoveTo(Vector3.new(41, 3, 30))
+end)
+
+MainSection:NewToggle("Remove/Add Maze Walls", "Removes/Adds All Invisible Maze Walls", function(state)
+    RemoveWalls = state
+    if state and ShowWalls then
+        for i, v in ipairs(INVISIBLEWALLSChildren) do
+            v.CanCollide   = false
+            v.Transparency = 0.85
+        end
+    elseif state then
+        for i, v in ipairs(INVISIBLEWALLSChildren) do
+            v.CanCollide   = false
+            v.Transparency = 1
+        end
+    elseif not state and ShowWalls then
+        for i, v in ipairs(INVISIBLEWALLSChildren) do
+            v.CanCollide   = true
+            v.Transparency = 0.7
+        end
+    elseif not state then
+        for i, v in ipairs(INVISIBLEWALLSChildren) do
+            v.CanCollide   = true
+            v.Transparency = 1
+        end
+    end
+end)
+
+MainSection:NewToggle("Show/Hide Maze Walls", "Show/Hide All Invisible MAze Walls", function(state)
+    ShowWalls = state
+    if state and RemoveWalls then
+        for i, v in ipairs(INVISIBLEWALLSChildren) do
+            v.Transparency = 0.85
+        end
+    elseif state then
+        for i, v in ipairs(INVISIBLEWALLSChildren) do
+            v.Transparency = 0.7
+        end
+    elseif not state then
+        for i, v in ipairs(INVISIBLEWALLSChildren) do
+            v.Transparency = 1
+        end
+    end
+end)
+
+MainSection:NewButton("Inf Yield Admin", "FE Admin Commands", function()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+end)
+
+
+--LOCAL PLAYER
+local PlayerTab     = Window:NewTab("Player")
+local PlayerSection = PlayerTab:NewSection("Player")
+
+PlayerSection:NewSlider("Walkspeed", "SPEED!!", 500, 16, function(s)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+PlayerSection:NewSlider("Jumppower", "JUMP HIGH!!", 350, 50, function(s)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
+
+PlayerSection:NewButton("Btools", "Gives You BTools", function()
+    local Player = game.Players.LocalPlayer
+    local Hammer = Instance.new('HopperBin')
+    Hammer.BinType = 'Hammer'
+    Hammer.Name = 'Hammer'
+    Hammer.Parent = Player.Backpack
+    Hammer:Clone().Parent = Player.StarterGear
+
+    local Clone = Instance.new('HopperBin')
+    Clone.BinType = 'Clone'
+    Clone.Name = 'Clone'
+    Clone.Parent = Player.Backpack
+    Clone:Clone().Parent = Player.StarterGear
+
+    local Grab = Instance.new('HopperBin')
+    Grab.BinType = 'Grab'
+    Grab.Name = 'Grab'
+    Grab.Parent = Player.Backpack
+    Grab:Clone().Parent = Player.StarterGear
+end)
