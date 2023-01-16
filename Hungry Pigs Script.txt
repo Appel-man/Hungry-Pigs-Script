@@ -1,3 +1,5 @@
+-- Game: https://www.roblox.com/games/11216791462/Hungry-Pig
+
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Appel-man/ExploitLibrary/main/Main.txt"))()
 local Window  = Library.CreateLib("Hungry Pig Script By AbelStuff", "Synapse")
 local Player  = game.Players.LocalPlayer
