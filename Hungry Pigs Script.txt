@@ -1,4 +1,4 @@
-local Library = loadstring(game:HttpGet("https://pastebin.com/raw/yzt3qebK"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Appel-man/ExploitLibrary/main/Main.txt"))()
 local Window  = Library.CreateLib("Hungry Pig Script By AbelStuff", "Synapse")
 local Player  = game.Players.LocalPlayer
 -- MAIN
