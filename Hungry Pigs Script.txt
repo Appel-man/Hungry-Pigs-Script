@@ -271,3 +271,7 @@ PlayerSection:NewButton("Btools", "Gives You BTools", function()
     Grab.Parent = Player.Backpack
     Grab:Clone().Parent = Player.StarterGear
 end)
+
+PlayerSection:NewButton("Inf Yield Admin", "FE Admin Commands", function()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+end)
